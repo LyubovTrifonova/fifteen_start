@@ -12,6 +12,7 @@ html(lang="ru")
             h1 Игра в Пятнашки
             .fifteen
                 each val in values
-                    button.item= val
+                    button.item
+                        span.itemVal= val
             button.button Перемешать   
         script(src="/js/index.js")
