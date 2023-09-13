@@ -79,9 +79,6 @@ window.addEventListener('keydown', (event) => {
     setPositionItems(matrix);
 })
 
-/** Show won */
-
-
 /**Helpers */
 
 function getMatrix(arr){
