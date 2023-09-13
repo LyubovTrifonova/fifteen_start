@@ -7,4 +7,11 @@ html(lang="ru")
         link(rel="stylesheet" href="/css/reset.css")
         link(rel="stylesheet" href="/css/index.css")
     body
+        - var values = new Array(16).fill(0).map((item, index) => index + 1);
+        .page
+            h1 Игра в Пятнашки
+            .fifteen
+                each val in values
+                    button.item= val
+            button.button Перемешать   
         script(src="/js/index.js")
