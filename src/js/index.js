@@ -20,6 +20,7 @@ document.getElementById('shuffle').addEventListener('click', () => {
     matrix = getMatrix(shuffledArray);
     setPositionItems(matrix);
 })
+
 /** Change position by click*/
 const blankNumber = 16;
 containerNode.addEventListener('click', (event) => {
@@ -38,8 +39,45 @@ containerNode.addEventListener('click', (event) => {
         setPositionItems(matrix);
     }
 })
+
 /** Change position by keydown */
-/** Show won */
+window.addEventListener('keydown', (event) => {
+    if (!event.key.includes('Arrow')) {
+        return;
+    }
+
+    const blankCoords = findCoordinatesByNumber(blankNumber, matrix);
+    const buttonCoords = {
+        x: blankCoords.x,
+        y: blankCoords.y
+    };
+    const direction = event.key.split('Arrow')[1].toLowerCase();
+    const maxIndexMatrix = matrix.length;
+
+    console.log(direction);
+
+    switch (direction) {
+        case 'up':
+            buttonCoords.y +=1;
+            break;
+        case 'down':
+            buttonCoords.y -=1;
+            break;
+        case 'left':
+            buttonCoords.x +=1;
+            break;
+        case 'right':
+            buttonCoords.x -=1;
+            break;
+    }
+
+    if (buttonCoords.y >= maxIndexMatrix || buttonCoords.y < 0 ||
+        buttonCoords.x >= maxIndexMatrix || buttonCoords.x < 0) {
+            return;
+    }
+    swap(blankCoords, buttonCoords, matrix);
+    setPositionItems(matrix);
+})
 
 /**Helpers */
 
@@ -104,4 +142,30 @@ function swap(coords1, coords2, matrix) {
     const coords1Number = matrix[coords1.y][coords1.x];
     matrix[coords1.y][coords1.x] = matrix[coords2.y][coords2.x];
     matrix[coords2.y][coords2.x] = coords1Number;
+
+    if (isWon(matrix)) {
+        addWonClass();
+    }
+}
+
+const winFlatArr = new Array(16).fill(0).map((_item, i) => i + 1);
+function isWon(matrix) {
+    const flatMatrix = matrix.flat();
+    for (let i = 0; i < winFlatArr.length; i++){
+        if(flatMatrix[i] !== winFlatArr[i]){
+            return false;
+        }
+    }
+    return true;
+}
+
+const WonClass = 'fifteenWon'
+function addWonClass() {
+    setTimeout(() => {
+        containerNode.classList.add(WonClass);
+
+        setTimeout(() => {
+            containerNode.classList.remove(WonClass);
+        }, 1000);
+    }, 200);
 }
