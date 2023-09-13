@@ -12,7 +12,7 @@ html(lang="ru")
             h1 Игра в Пятнашки
             .fifteen#fifteen
                 each val in values
-                    button.item
+                    button.item(data-matrix-id=val)
                         span.itemVal= val
             button.button Перемешать   
         script(src="/js/index.js")
