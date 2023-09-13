@@ -11,7 +11,7 @@ let matrix = getMatrix(
     itemNodes.map((item) => Number(item.dataset.matrixId))
 )
 
-console.log(matrix);
+setPositionItems(matrix);
 
 /** Shuffle */
 /** Change position by click*/
@@ -35,3 +35,4 @@ function getMatrix(arr){
     }
     return matrix;
 }
+
